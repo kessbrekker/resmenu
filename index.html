@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lezzet Şöleni | Restoran Menüsü</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #800020; /* Bordo ana renk */
+            --secondary-color: #5c0018; /* Koyu bordo */
+            --accent-color: #a34343; /* Açık bordo */
+            --light-color: #f9f3f3; /* Açık fon rengi */
+            --text-color: #333;
+            --gold-color: #d4af37; /* Altın rengi aksanlar için */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            color: white;
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 0, 32, 0.4);
+        }
+        
+        header * {
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gold-color);
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+        
+        .slogan {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border: none;
+            border-radius: 30px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+        
+        nav {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--gold-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: var(--gold-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .menu-category {
+            margin-bottom: 60px;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .menu-item-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+        
+        .menu-item-price {
+            color: var(--gold-color);
+            font-weight: bold;
+        }
+        
+        .menu-item-desc {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .menu-item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background: var(--light-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background: var(--gold-color);
+            bottom: -5px;
+            left: 0;
+        }
+        
+        .contact-info {
+            margin-bottom: 15px;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--gold-color);
+        }
+        
+        .social-links a {
+            display: inline-block;
+            color: white;
+            background: var(--secondary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--gold-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+            }
+            
+            .nav-links li {
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                height: 80vh;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .slogan {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="logo">Lezzet Şöleni</h1>
+        <p class="slogan">Geleneksel Lezzetler, Modern Sunumlar</p>
+        <a href="#menu" class="btn">Menüyü Keşfet</a>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Lezzet Şöleni</div>
+            <ul class="nav-links">
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="#menu">Menü</a></li>
+                <li><a href="#about">Hakkımızda</a></li>
+                <li><a href="#contact">İletişim</a></li>
+                <li><a href="#reservation">Rezervasyon</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section id="menu" class="container">
+        <h2>Menümüz</h2>
+        
+        <div class="menu-category">
+            <h3>Başlangıçlar</h3>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mevsim Yeşillikleri">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Mevsim Yeşillikleri</span>
+                            <span class="menu-item-price">₺85</span>
+                        </div>
+                        <p class="menu-item-desc">Taze mevsim yeşillikleri, nar ekşili özel sos ve ceviz ile</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Vejetaryen</span>
+                            <span class="tag">Glutensiz</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Humus">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Humus</span>
+                            <span class="menu-item-price">₺75</span>
+                        </div>
+                        <p class="menu-item-desc">Nohut, tahin, zeytinyağı ve özel baharatlarla hazırlanır</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Vejetaryen</span>
+                            <span class="tag">Vegan</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1625937323772-2d20d9a9a9b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sigara Böreği">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Sigara Böreği</span>
+                            <span class="menu-item-price">₺90</span>
+                        </div>
+                        <p class="menu-item-desc">İnce yufka içerisinde peynir ve maydanoz dolgusu</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Geleneksel</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <h3>Ana Yemekler</h3>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kuzu Tandır">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Kuzu Tandır</span>
+                            <span class="menu-item-price">₺220</span>
+                        </div>
+                        <p class="menu-item-desc">Yavaş pişirilmiş kuzu eti, yanında bulgur pilavı ve mevsim salatası ile</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Özel</span>
+                            <span class="tag">Geleneksel</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sebzeli Makarna">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Sebzeli Makarna</span>
+                            <span class="menu-item-price">₺130</span>
+                        </div>
+                        <p class="menu-item-desc">Taze sebzeler ve kremalı sos ile hazırlanan makarna</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Vejetaryen</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1601050690117-64b6d2a7a51b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Izgara Levrek">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Izgara Levrek</span>
+                            <span class="menu-item-price">₺180</span>
+                        </div>
+                        <p class="menu-item-desc">Taze levrek fileto, zeytinyağlı yeşillikler ve limon dilimleri ile</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Deniz Ürünü</span>
+                            <span class="tag">Sağlıklı</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <h3>Tatlılar</h3>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Baklava">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Baklava</span>
+                            <span class="menu-item-price">₺95</span>
+                        </div>
+                        <p class="menu-item-desc">Geleneksel usül cevizli baklava, kaymak ile servis edilir</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Geleneksel</span>
+                            <span class="tag">Özel</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Çikolata Sufle">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Çikolata Sufle</span>
+                            <span class="menu-item-price">₺110</span>
+                        </div>
+                        <p class="menu-item-desc">Sıcak çikolata sufle, vanilyalı dondurma ile</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Önerilen</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Meyve Tabası">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <span>Meyve Tabası</span>
+                            <span class="menu-item-price">₺80</span>
+                        </div>
+                        <p class="menu-item-desc">Mevsim meyveleri, ballı yoğurt sos ile</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Sağlıklı</span>
+                            <span class="tag">Vejetaryen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Hakkımızda</h3>
+                <p>Lezzet Şöleni, 2010 yılından beri geleneksel lezzetleri modern sunumlarla buluşturarak misafirlerine unutulmaz bir deneyim yaşatıyor.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>İletişim</h3>
+                <div class="contact-info">
+                    <i class="fas fa-map-marker-alt"></i> Örnek Mahallesi, Menü Sokak No:15, İstanbul
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-phone"></i> 0212 123 45 67
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i> info@lezzetsoleni.com
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Sosyal Medya</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-yelp"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Lezzet Şöleni. Tüm hakları saklıdır.
+        </div>
+    </footer>
+</body>
+</html>
